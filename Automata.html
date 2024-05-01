@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Number Checker</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-bottom: 100px;
+    }
+    .container {
+        margin: 50px auto;
+        width: 300px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #f2f2f2;
+        padding: 10px 0;
+        z-index: 1; 
+    }
+    #result {
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    .scientific {
+        background-color: green;
+        color: white;
+    }
+    .not-scientific {
+        background-color: red;
+        color: white;
+    }
+    #exampleBox {
+        padding: 10px;
+        margin-top: 20px;
+        border: 2px solid #ccc;
+        background-color: #f9f9f9; 
+        margin-bottom: 100px; 
+        text-align: center; 
+    }
+    #exampleBox h3 {
+        margin-top: 0; 
+    }
+    #exampleBox ul {
+        padding-left: 20px; 
+        text-align: left; 
+    }
+</style>
+</head>
+<body>
+<h1>Assignment Automata</h1>
+<div class="container">
+    <h2>Scientific Number Checker</h2>
+    <input type="text" id="numberInput" placeholder="Enter scientific number">
+    <button onclick="checkScientificNumber()">Check</button>
+    <div id="result"></div>
+    <div id="exampleBox">
+        <h3>Examples of Scientific Numbers:</h3>
+        <ul>
+            <li>6.67430e-11 - Gravitational constant in Newtonian units</li>
+            <li>2.99792e8 - Speed of light in meters per second</li>
+            <li>6.022e23 - Avogadro's number in the unit of mol^-1</li>
+            <li>2.71828E-5 - Value of 'e', the base of natural logarithms</li>
+            <li>1.60218e-19 - Elementary charge in coulombs</li>
+        </ul>
+    </div>
+</div>
+
+<div id="footer">
+    <p>Dibuat Oleh: <br> Wendell Y. Wullur (221011060132) <br> Prodi Sistem Informasi <br> Universitas Sam Ratulangi Manado</p>
+</div>
+
+<script>
+function checkScientificNumber() {
+    var input = document.getElementById("numberInput").value;
+    var scientificRegex = /^[+-]?\d+(\.\d+)?[eE][+-]?\d+$/;
+    var numberRegex = /^(?:[-+]?\d+(\.\d*)?|\.\d+)$/;
+    var x10Regex = /^\d+x10\^\d+$/;
+    var resultElement = document.getElementById("result");
+    
+    if (scientificRegex.test(input)) {
+        resultElement.innerText = input + " is a scientific number.";
+        resultElement.className = "scientific";
+        if (input.toLowerCase().indexOf('e') !== -1) {
+            switch (input) {
+                case "6.67430e-11":
+                    resultElement.innerText += " This is the gravitational constant in Newtonian units.";
+                    break;
+                case "2.99792e8":
+                    resultElement.innerText += " This is the speed of light in meters per second.";
+                    break;
+                case "6.022e23":
+                    resultElement.innerText += " This is Avogadro's number in the unit of mol^-1.";
+                    break;
+                case "2.71828E-5":
+                    resultElement.innerText += " This is the value of 'e', the base of natural logarithms.";
+                    break;
+                case "1.60218e-19":
+                    resultElement.innerText += " This is the elementary charge in coulombs.";
+                    break;
+                default:
+                    break;
+            }
+        }
+    } else if (numberRegex.test(input)) {
+        resultElement.innerText = input + " is not a scientific number.";
+        resultElement.className = "not-scientific";
+    } else if (x10Regex.test(input)) {
+        resultElement.innerText = input + " is a scientific number.";
+        resultElement.className = "scientific";
+    } else {
+        resultElement.innerText = input + " please input a valid number.";
+        resultElement.className = "not-scientific";
+    }
+}
+</script>
+</body>
+</html>
